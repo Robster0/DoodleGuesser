@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js defer></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js defer></script>
+    <script src="https://kit.fontawesome.com/75aa1d4d81.js" crossorigin="anonymous" defer></script>
+    <script src="NeuralNetwork.js" defer></script>
+    <script type="module" src="index.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Index</title>
+</head>
+<body>
+    <div class="options">
+        <i title="activate draw mode" class="fa-solid fa-paintbrush fa-2x"></i>
+        <i title="activate erase mode" class="fa-solid fa-eraser fa-2x"></i>
+        <i title="clear drawing board" class="fa-solid fa-trash fa-2x"></i>
+    </div>  
+    <canvas id="drawBoard">
+
+
+
+    </canvas>
+
+    <div class="menu">
+       <input type="text" id="doodlename" placeholder="doodle name" name="name">
+       <div>
+        <button id="check">Check</button>
+        <button id="learn">Learn</button>
+        <button id="save">Save</button>
+       </div>
+    </div>
+
+    <div>
+        <h4 class="result"></h4>
+    </div>
+
+    <div id="loading" class="hide"></div>
+</body>
+</html>
