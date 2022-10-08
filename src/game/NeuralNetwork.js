@@ -75,9 +75,8 @@ class NeuralNetwork
     {
 
        let [guesses_IH, guesses_HO] = guesses;
-       //Output errorsd which will be calculates from the current output results from the forward propagation algorithm
+       
        let errors_HO = [];
-       //These errorsd are calculated through the specific target (wanted result) - the guesses we got from the forward propagation
        
        for(let i = 0; i<guesses_HO.length; i++) {
         errors_HO.push((Array.isArray(targets) ? targets[i] : targets) - guesses_HO[i])
@@ -95,7 +94,7 @@ class NeuralNetwork
 
        let errors_IH = math.multiply(transposed_HO, errors_HO);  
  
-      //Calculation of the new weights through the formula of -> learning rate * current errors * sigmoid`(x) * previous input layer
+      //Calculation of the new weights through the formula of -> learning rate * current errors * derivative of sigmoid * previous input layer
       this.weights_HO = this.calculateGradient(math.matrix(errors_HO), guesses_HO, guesses_IH, this.weights_HO); 
 
 
@@ -104,21 +103,16 @@ class NeuralNetwork
 
     calculateGradient(errors, sigmoided, input, v)
     {
-      // lr * errors_HO * S`(x) * guesses_IH eller  lr * errors_IH * S`(x) * inputs
       let gradient = []
       for(let i = 0; i<math.size(errors)._data[0]; i++)
       {       
-        //console.log(errors._data[i])
         gradient.push( (errors._data[i] * (sigmoided[i] * (1 - sigmoided[i]))) * this.lr);
         if(v == this.weights_HO)
-        this.bias_HO[i] += gradient[i]
+            this.bias_HO[i] += gradient[i]
         else
-        this.bias_IH[i] += gradient[i]
+            this.bias_IH[i] += gradient[i]
       }
 
-      //console.log(math.size(errors)._data[0])
-      //console.log("input: " +input.length)
-      //Lägger till den sista delen på gradient
       for(let i = 0; i<gradient.length; i++)
       {
         let sum = 0;
@@ -129,8 +123,7 @@ class NeuralNetwork
         gradient[i] = sum;
       }
 
-      //console.table(gradient);
-      //Trycker på gradient till the weights mellan hidden och output, måste tyvärr göra en for loop här för att mathjs är en bitch
+      //Trycker på gradient till the weights mellan hidden och output, måste tyvärr göra en for loop här för att mathjs är en b!tch
       let evaluation = [];
       for(let i = 0; i<gradient.length; i++)
       {
@@ -140,8 +133,6 @@ class NeuralNetwork
               evaluation[i][j] = v._data[i][j] + gradient[i]; 
           }
       }
-
-      //console.table(evaluation);
       
       return math.matrix(evaluation);
     }
